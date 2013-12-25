@@ -1,0 +1,10 @@
+{
+	"name":"Cowell",
+	"version":"0.0.1",
+	"private":"true",
+	"dependencies":{
+		"socket.io":"0.9.16",
+		"koa":"0.1.2"
+	}
+	
+}
