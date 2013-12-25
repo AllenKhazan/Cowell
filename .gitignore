@@ -212,4 +212,7 @@ pip-log.txt
 *.mo
 
 #Mr Developer
-.mr.developer.cfg
+.mr.developer.
+
+#node mods
+node_modules/
