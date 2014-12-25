@@ -1,11 +1,14 @@
 var Cowell = require('./cowell');
 var React = require('react');
 
-var {Route, Routes} = require('react-router');
+var Router = require('react-router');
+var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
-React.renderComponent((
-  <Routes>
-    <Route path="/" handler={Cowell}>
-    </Route>
-  </Routes>
-), document.body);
+var routes = (
+  <Route path="/" handler={Cowell}>
+  </Route>
+);
+
+Router.run(routes, function(Handler) {
+  React.render(<Handler />, document.body);
+});
