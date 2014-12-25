@@ -216,3 +216,6 @@ pip-log.txt
 
 #node mods
 node_modules/
+
+#webpack bundle
+bundle.js
