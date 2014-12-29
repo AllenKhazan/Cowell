@@ -11,6 +11,7 @@ var styles = {
 var Button = React.createClass({
   propTypes: {
     color: React.PropTypes.string.isRequired,
+    lit: React.PropTypes.bool.isRequired,
     chooseColor: React.PropTypes.func.isRequired
   },
   getInitialState: function() {
@@ -38,7 +39,11 @@ var Button = React.createClass({
     setTimeout(this.resetStyle ,150);
   },
   render: function() {
-    return( <div id={this.props.color} onClick={this._onClick} style={m(styles.container, this.props.color && {background:this.props.color})} ></div>)
-  }
+    return( <div id={this.props.color} onClick={this._onClick} 
+      style={m(styles.container, 
+               this.props.color && {background:this.props.color},
+               this.props.lit ? {opacity:0.3} : {opacity:1.0}
+               )} ></div>)
+}
 });
 module.exports = Button;

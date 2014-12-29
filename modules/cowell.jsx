@@ -22,12 +22,13 @@ var Cowell = React.createClass({
     var seq = this.state.sequence;
     var rock = function() {
       console.log("playin " + seq[i]);
+      this.setState({litButton:seq[i]});
       i++;
-      if (i == seq.length) {
+      if (i > seq.length) {
         clearInterval(playing);
       }
     }
-    var playing = setInterval(rock,500);
+    var playing = setInterval(rock.bind(this),500);
   },
   chooseColor: function(c) {
     if (c == this.state.sequence[this.state.currentIndex]) {
@@ -41,6 +42,7 @@ var Cowell = React.createClass({
                       sequence: this.state.sequence.concat([newColor])
                       },this.playSequence
                      );
+        this.setState({litButton:""});
       } else {
         console.log("keep going");
         this.setState({playerInput: this.state.playerInput.concat([c]),
@@ -58,12 +60,13 @@ var Cowell = React.createClass({
     this.setState({
       sequence: [this.choice(this.props.colors)],
       playerInput: [],
-      currentIndex: 0
+      currentIndex: 0,
+      litButton: ""
     });
   },
   render: function() {
     var buttons = this.props.colors.map( function(c) { return (
-      <Button chooseColor={this.chooseColor} key={c} color={c}/>
+      <Button chooseColor={this.chooseColor} key={c} lit={c === this.state.litButton ? true : false} color={c}/>
     ); }, this);
     return (
       <div>
