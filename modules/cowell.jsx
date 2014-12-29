@@ -1,37 +1,5 @@
-var React = require('react');
-var Button = React.createClass({
-  propTypes: {
-    color: React.PropTypes.string.isRequired,
-    chooseColor: React.PropTypes.func.isRequired
-  },
-  getInitialState: function() {
-    return ({
-      style: { background: this.props.color,
-               opacity: 1.0,
-               height: '30px', 
-               width: '60px',
-               border: '2px solid black' }
-            }
-           );
-  },
-  resetStyle: function() {
-    this.setState(this.getInitialState());
-  },
-  _onClick: function() {
-    console.log("clicked", this.props.color);
-    this.props.chooseColor(this.props.color);
-    this.flashButton();
-  },
-  flashButton: function() {
-    var oldstyle = this.state.style;
-    oldstyle.opacity=0.7;
-    this.setState({style:oldstyle});
-    setTimeout(this.resetStyle ,150);
-  },
-  render: function() {
-    return( <div onClick={this._onClick} style={this.state.style} ></div>)
-  }
-});
+var React = require('react/addons');
+var Button = require('button');
 var Cowell = React.createClass({
   getDefaultProps: function() {
     return(
@@ -49,15 +17,29 @@ var Cowell = React.createClass({
       }
     );
   },
+  playSequence: function() {
+    var i = 0
+    var seq = this.state.sequence;
+    var rock = function() {
+      console.log("playin " + seq[i]);
+      i++;
+      if (i == seq.length) {
+        clearInterval(playing);
+      }
+    }
+    var playing = setInterval(rock,500);
+  },
   chooseColor: function(c) {
     if (c == this.state.sequence[this.state.currentIndex]) {
       if (this.state.sequence.length == this.state.currentIndex + 1) {
         console.log("good job");
+        // add the color
+        // play new sequence
         var newColor = this.choice(this.props.colors);
         this.setState({playerInput: [],
                       currentIndex: 0,
                       sequence: this.state.sequence.concat([newColor])
-                      }
+                      },this.playSequence
                      );
       } else {
         console.log("keep going");
