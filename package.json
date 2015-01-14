@@ -18,6 +18,8 @@
     "webpack-dev-server": "^1.7.0"
   },
   "dependencies": {
+    "jstransform": "^8.2.0",
+    "jstransform-loader": "^0.2.0",
     "react": "^0.12.2",
     "react-router": "^0.11.6"
   }
